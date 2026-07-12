@@ -42,9 +42,16 @@ async function seedDatabase() {
         name: 'RUET Computing Society',
         role: 'admin',
         points: 0,
+        password: 'admin123',
         createdAt: new Date()
       });
-      console.log('Seeded default admin account: RUET Computing Society (0123456)');
+      console.log('Seeded default admin account: RUET Computing Society (0123456) with password admin123');
+    } else {
+      const currentData = adminDoc.data();
+      if (!currentData.password) {
+        await adminRef.update({ password: 'admin123' });
+        console.log('Updated existing admin account with default password: admin123');
+      }
     }
   } catch (error) {
     console.error('Error during database seeding:', error);
@@ -58,15 +65,19 @@ seedDatabase();
 
 // 1. Register User
 app.post('/api/auth/register', async (req, res) => {
-  const { name, id, role, secretCode } = req.body;
+  const { name, id, role, secretCode, password } = req.body;
 
-  if (!name || !id || !role) {
-    return res.status(400).json({ error: 'Name, Student ID, and Role are required.' });
+  if (!name || !id || !role || !password) {
+    return res.status(400).json({ error: 'Name, Student ID, Role, and Password are required.' });
   }
 
   // Validate 7-digit ID
   if (!/^\d{7}$/.test(id)) {
     return res.status(400).json({ error: 'Student ID must be exactly a 7-digit number.' });
+  }
+
+  if (password.length < 6) {
+    return res.status(400).json({ error: 'Password must be at least 6 characters long.' });
   }
 
   if (role !== 'volunteer' && role !== 'executive') {
@@ -100,6 +111,7 @@ app.post('/api/auth/register', async (req, res) => {
       name: name.trim(),
       role,
       points: 0,
+      password: password,
       createdAt: new Date()
     };
 
@@ -113,10 +125,10 @@ app.post('/api/auth/register', async (req, res) => {
 
 // 2. Login User
 app.post('/api/auth/login', async (req, res) => {
-  const { name, id } = req.body;
+  const { id, password } = req.body;
 
-  if (!name || !id) {
-    return res.status(400).json({ error: 'Name and Student ID are required.' });
+  if (!id || !password) {
+    return res.status(400).json({ error: 'Student ID and Password are required.' });
   }
 
   try {
@@ -134,12 +146,15 @@ app.post('/api/auth/login', async (req, res) => {
 
     const userData = userDoc.data();
 
-    // Verify name matches (case-insensitive and trimmed)
-    if (userData.name.toLowerCase().trim() !== name.toLowerCase().trim()) {
-      return res.status(400).json({ error: 'Incorrect name or Student ID.' });
+    // Verify password matches
+    if (userData.password !== password) {
+      return res.status(400).json({ error: 'Incorrect Student ID or password.' });
     }
 
-    res.json({ message: 'Login successful', user: userData });
+    // Do not return password in the response payload
+    const { password: _, ...userWithoutPassword } = userData;
+
+    res.json({ message: 'Login successful', user: userWithoutPassword });
   } catch (error) {
     console.error('Login error:', error);
     res.status(500).json({ error: 'Internal server error' });

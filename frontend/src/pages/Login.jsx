@@ -14,6 +14,7 @@ export default function Login({ onLoginSuccess }) {
   const [name, setName] = useState('');
   const [studentId, setStudentId] = useState('');
   const [secretCode, setSecretCode] = useState('');
+  const [password, setPassword] = useState('');
   
   // UI States
   const [error, setError] = useState('');
@@ -24,6 +25,7 @@ export default function Login({ onLoginSuccess }) {
     setName('');
     setStudentId('');
     setSecretCode('');
+    setPassword('');
     setError('');
     setSuccess('');
   };
@@ -34,7 +36,7 @@ export default function Login({ onLoginSuccess }) {
   };
 
   const validateForm = () => {
-    if (!name.trim()) {
+    if (!isLoginTab && !name.trim()) {
       setError('Full Name is required.');
       return false;
     }
@@ -44,6 +46,14 @@ export default function Login({ onLoginSuccess }) {
     }
     if (!isLoginTab && role === 'executive' && !secretCode.trim()) {
       setError('Secret Code is required for Executive Members.');
+      return false;
+    }
+    if (!password) {
+      setError('Password is required.');
+      return false;
+    }
+    if (!isLoginTab && password.length < 6) {
+      setError('Password must be at least 6 characters long.');
       return false;
     }
     setError('');
@@ -61,8 +71,8 @@ export default function Login({ onLoginSuccess }) {
     try {
       const endpoint = isLoginTab ? '/auth/login' : '/auth/register';
       const payload = isLoginTab 
-        ? { name, id: studentId } 
-        : { name, id: studentId, role, secretCode: role === 'executive' ? secretCode : undefined };
+        ? { id: studentId, password } 
+        : { name, id: studentId, role, password, secretCode: role === 'executive' ? secretCode : undefined };
 
       const response = await fetch(`${API_URL}${endpoint}`, {
         method: 'POST',
@@ -89,10 +99,8 @@ export default function Login({ onLoginSuccess }) {
         setSuccess('Registration successful! You can now log in.');
         setIsLoginTab(true);
         // Pre-fill the login form
-        const registeredName = name;
         const registeredId = studentId;
         resetForm();
-        setName(registeredName);
         setStudentId(registeredId);
       }
     } catch (err) {
@@ -169,22 +177,24 @@ export default function Login({ onLoginSuccess }) {
             </div>
           )}
 
-          {/* Full Name */}
-          <div className="form-group">
-            <label className="form-label" htmlFor="fullName">Full Name</label>
-            <div className="input-with-icon">
-              <User size={18} className="input-icon" />
-              <input
-                id="fullName"
-                type="text"
-                className="form-input text-input"
-                placeholder="Kuddus"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                disabled={loading}
-              />
+          {/* Full Name (Registration Only) */}
+          {!isLoginTab && (
+            <div className="form-group">
+              <label className="form-label" htmlFor="fullName">Full Name</label>
+              <div className="input-with-icon">
+                <User size={18} className="input-icon" />
+                <input
+                  id="fullName"
+                  type="text"
+                  className="form-input text-input"
+                  placeholder="Kuddus"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  disabled={loading}
+                />
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Student ID */}
           <div className="form-group">
@@ -203,6 +213,23 @@ export default function Login({ onLoginSuccess }) {
                   const val = e.target.value.replace(/\D/g, '');
                   setStudentId(val);
                 }}
+                disabled={loading}
+              />
+            </div>
+          </div>
+
+          {/* Password */}
+          <div className="form-group animate-fade-in">
+            <label className="form-label" htmlFor="password">Password</label>
+            <div className="input-with-icon">
+              <Lock size={18} className="input-icon" />
+              <input
+                id="password"
+                type="password"
+                className="form-input text-input"
+                placeholder={isLoginTab ? "Enter your password" : "Create a password (min 6 chars)"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 disabled={loading}
               />
             </div>

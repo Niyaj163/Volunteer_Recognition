@@ -16,7 +16,8 @@ async function runTests() {
       body: JSON.stringify({
         name: 'Test Volunteer',
         id: '2000001',
-        role: 'volunteer'
+        role: 'volunteer',
+        password: 'password123'
       })
     });
     const regVolData = await regVolResponse.json();
@@ -33,7 +34,8 @@ async function runTests() {
         name: 'Test Executive Fail',
         id: '2000002',
         role: 'executive',
-        secretCode: 'WRONG_CODE'
+        secretCode: 'WRONG_CODE',
+        password: 'password123'
       })
     });
     const regExecFailData = await regExecFailResponse.json();
@@ -50,7 +52,8 @@ async function runTests() {
         name: 'Test Executive Pass',
         id: '2000003',
         role: 'executive',
-        secretCode: 'RUET2026' // default seeded secret code
+        secretCode: 'RUET2026', // default seeded secret code
+        password: 'password123'
       })
     });
     const regExecPassData = await regExecPassResponse.json();
@@ -64,8 +67,8 @@ async function runTests() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name: 'RUET Computing Society',
-        id: '0123456'
+        id: '0123456',
+        password: 'admin123'
       })
     });
     const adminLoginData = await adminLoginRes.json();
@@ -79,8 +82,8 @@ async function runTests() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name: 'Test Volunteer',
-        id: '2000001'
+        id: '2000001',
+        password: 'password123'
       })
     });
     const volLoginData = await volLoginRes.json();
