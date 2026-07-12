@@ -151,7 +151,7 @@ export default function Login({ onLoginSuccess }) {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="login-form">
+        <form onSubmit={handleSubmit} className="login-form" autoComplete="off">
           {/* Conditional Role Selection for Registration */}
           {!isLoginTab && (
             <div className="form-group">
@@ -191,6 +191,7 @@ export default function Login({ onLoginSuccess }) {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   disabled={loading}
+                  autoComplete="off"
                 />
               </div>
             </div>
@@ -214,6 +215,7 @@ export default function Login({ onLoginSuccess }) {
                   setStudentId(val);
                 }}
                 disabled={loading}
+                autoComplete="off"
               />
             </div>
           </div>
@@ -231,6 +233,7 @@ export default function Login({ onLoginSuccess }) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={loading}
+                autoComplete="new-password"
               />
             </div>
           </div>
@@ -249,6 +252,7 @@ export default function Login({ onLoginSuccess }) {
                   value={secretCode}
                   onChange={(e) => setSecretCode(e.target.value)}
                   disabled={loading}
+                  autoComplete="new-password"
                 />
               </div>
             </div>
