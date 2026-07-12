@@ -248,6 +248,13 @@ try {
     let privateKey = process.env.FIREBASE_PRIVATE_KEY;
 
     if (projectId && clientEmail && privateKey && projectId.trim() !== '') {
+      privateKey = privateKey.trim();
+      if (privateKey.startsWith('"') && privateKey.endsWith('"')) {
+        privateKey = privateKey.slice(1, -1);
+      }
+      if (privateKey.startsWith("'") && privateKey.endsWith("'")) {
+        privateKey = privateKey.slice(1, -1);
+      }
       privateKey = privateKey.replace(/\\n/g, '\n');
       credential = admin.cert({
         projectId,
