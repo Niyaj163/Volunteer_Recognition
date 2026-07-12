@@ -329,6 +329,10 @@ app.post('/api/admin/secret-code', async (req, res) => {
 });
 
 // --- Start the Server ---
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
+
+export default app;
