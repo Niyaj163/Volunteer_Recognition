@@ -1,0 +1,34 @@
+# Dependency directories
+node_modules/
+jspm_packages/
+web_stage/
+
+# Local databases & mock stores
+backend/mock_db.json
+mock_db.json
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Editor & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Secrets & Environment configs
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.json.enc
+
+# Firebase keys (if any are saved locally)
+backend/config/firebase-service-account.json
+firebase-service-account.json
+private_key.json
+serviceAccountKey.json
