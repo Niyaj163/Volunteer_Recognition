@@ -534,6 +534,7 @@ h1, h2, h3, h4 {
   border-radius: var(--radius-md);
   border: 1px solid var(--border-color);
   margin-bottom: 0.5rem;
+  margin: 0.5rem;
 }
 
 .mobile-profile-header {
@@ -545,7 +546,7 @@ h1, h2, h3, h4 {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin: 10px;
+  
 }
 
 .mobile-profile-name {
