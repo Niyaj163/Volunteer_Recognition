@@ -581,7 +581,8 @@ h1, h2, h3, h4 {
 }
 
 .mobile-menu-item {
-  width: 100%;
+  width: calc(100% - 1rem);
+  margin: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -680,7 +681,8 @@ h1, h2, h3, h4 {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    width: 100%;
+    width: calc(100% - 1rem);
+    margin: 0.5rem;
     padding: 0.75rem;
     background: rgba(239, 68, 68, 0.08) !important;
     color: #f87171 !important;
@@ -688,7 +690,6 @@ h1, h2, h3, h4 {
     border-radius: var(--radius-md);
     font-weight: 600;
     font-size: 0.875rem;
-    margin-top: 0.25rem;
     transition: all var(--transition-fast);
   }
 
