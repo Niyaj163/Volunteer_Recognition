@@ -545,6 +545,7 @@ h1, h2, h3, h4 {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  margin: 10px;
 }
 
 .mobile-profile-name {
