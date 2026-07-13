@@ -380,10 +380,16 @@ export default function Recognition({ user, onLogout, onNavigateToHome }) {
       </main>
 
       <style>{`
+        .page-header {
+          max-width: 720px;
+          margin: 0 auto 1.5rem auto;
+          width: 100%;
+        }
+
         .recognition-card {
           max-width: 720px;
           margin: 0 auto 3rem;
-          padding: 2rem;
+          padding: 2.5rem;
         }
 
         .recognition-form {
@@ -573,16 +579,19 @@ export default function Recognition({ user, onLogout, onNavigateToHome }) {
 
         @media (max-width: 480px) {
           .recognition-card {
-            padding: 1.5rem 1rem;
+            padding: 1.75rem 1.25rem;
           }
           
           .selection-row {
             flex-direction: column;
             align-items: flex-start;
             gap: 0.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--border-color);
             width: 100%;
+          }
+
+          .selection-row:not(:last-child) {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.25rem;
           }
 
           .custom-dropdown-container {

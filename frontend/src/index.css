@@ -100,6 +100,29 @@ button, input, select, textarea {
   padding: 2rem 1rem;
 }
 
+/* Page Header Spacing */
+.page-header {
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.header-text h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem 0;
+  color: white;
+}
+
+.header-text p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
 /* Glass Card */
 .glass-card {
   background: var(--glass-bg);
@@ -542,18 +565,6 @@ h1, h2, h3, h4 {
   }
 }
 
-@media (max-width: 900px) {
-  .navbar-container {
-    flex-wrap: wrap;
-  }
-  
-  .navbar-center {
-    order: 3;
-    width: 100%;
-    max-width: 100%;
-  }
-}
-
 @media (max-width: 768px) {
   body {
     font-size: 15px;
@@ -564,7 +575,7 @@ h1, h2, h3, h4 {
   }
 
   .main-content {
-    padding: 1rem 0.75rem;
+    padding: 1.5rem 1rem;
   }
 
   /* Form layouts */
@@ -578,6 +589,11 @@ h1, h2, h3, h4 {
     padding: 0.75rem 1rem;
   }
   
+  /* Hide search bar in navbar on mobile viewports */
+  .navbar-center {
+    display: none !important;
+  }
+
   /* Navbar mobile specific rules */
   .desktop-nav-menu {
     display: none;
@@ -587,14 +603,23 @@ h1, h2, h3, h4 {
     display: block;
   }
 
+  /* Floating Popover Drawer aligned to the right */
   .mobile-nav-menu {
+    position: absolute;
+    top: 100%;
+    right: 1rem;
+    width: 290px;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
     display: flex;
     flex-direction: column;
-    width: 100%;
-    padding: 1rem 0;
-    gap: 1rem;
-    border-top: 1px solid var(--border-color);
-    order: 4;
+    gap: 0.75rem;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    z-index: 1000;
   }
   
   /* Leaderboard cell optimization */
