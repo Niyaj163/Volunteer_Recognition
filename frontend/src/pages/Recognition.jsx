@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Award, LogOut, ArrowLeft, Plus, Trash2, Search, Check, AlertCircle } from 'lucide-react';
+import { Award, LogOut, ArrowLeft, Plus, Trash2, Search, Check, AlertCircle, Menu, X, User } from 'lucide-react';
 import logo from '../assets/logo.png';
 
 const API_URL = window.location.origin.includes('localhost:5173')
@@ -10,6 +10,7 @@ export default function Recognition({ user, onLogout, onNavigateToHome }) {
   const [volunteers, setVolunteers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   // Recognition Form States
   const [selections, setSelections] = useState([{ id: '', searchVal: '', dropdownOpen: false }]);
@@ -41,6 +42,7 @@ export default function Recognition({ user, onLogout, onNavigateToHome }) {
   const handleDropdownSearchChange = (index, val) => {
     const updated = [...selections];
     updated[index].searchVal = val;
+    updated[index].id = ''; // Clear ID to force selecting from the list if they edit the text
     setSelections(updated);
   };
 
@@ -172,7 +174,7 @@ export default function Recognition({ user, onLogout, onNavigateToHome }) {
             </div>
           </div>
 
-          <div className="navbar-right">
+          <div className="navbar-right desktop-nav-menu">
             <button className="btn btn-secondary nav-action-btn" onClick={onNavigateToHome}>
               <ArrowLeft size={16} />
               Back to Home
@@ -182,7 +184,39 @@ export default function Recognition({ user, onLogout, onNavigateToHome }) {
               <span>Log Out</span>
             </button>
           </div>
+
+          {/* Mobile Menu Toggle */}
+          <button className="mobile-menu-toggle" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu">
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
+
+        {/* Mobile Dropdown Menu */}
+        {mobileMenuOpen && (
+          <div className="mobile-nav-menu animate-fade-in">
+            {/* Mobile User Profile badge */}
+            <div className="mobile-user-profile">
+              <User size={16} className="profile-icon" />
+              <span className="profile-name">{user.name}</span>
+              <span className="role-tag role-executive">Executive</span>
+            </div>
+
+            <button 
+              className="btn btn-secondary mobile-menu-item" 
+              onClick={() => { setMobileMenuOpen(false); onNavigateToHome(); }}
+            >
+              <ArrowLeft size={16} />
+              Back to Home
+            </button>
+            <button 
+              className="logout-btn mobile-menu-item" 
+              onClick={() => { setMobileMenuOpen(false); onLogout(); }}
+            >
+              <LogOut size={20} />
+              <span>Log Out</span>
+            </button>
+          </div>
+        )}
       </nav>
 
       {/* Main Content */}
@@ -242,7 +276,9 @@ export default function Recognition({ user, onLogout, onNavigateToHome }) {
                               value={selection.searchVal}
                               onChange={(e) => handleDropdownSearchChange(idx, e.target.value)}
                               onFocus={() => toggleDropdown(idx, true)}
+                              onBlur={() => setTimeout(() => toggleDropdown(idx, false), 200)}
                               disabled={formSubmitLoading}
+                              autoComplete="off"
                             />
                             {selection.id && (
                               <Check size={16} className="selection-checked-icon" />
@@ -546,6 +582,11 @@ export default function Recognition({ user, onLogout, onNavigateToHome }) {
             gap: 0.5rem;
             padding-bottom: 1rem;
             border-bottom: 1px solid var(--border-color);
+            width: 100%;
+          }
+
+          .custom-dropdown-container {
+            width: 100%;
           }
 
           .row-number {

@@ -502,6 +502,23 @@ h1, h2, h3, h4 {
   display: none;
 }
 
+.mobile-user-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  margin-bottom: 0.5rem;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .mobile-search-wrapper {
   position: relative;
   display: flex;
@@ -583,6 +600,13 @@ h1, h2, h3, h4 {
   /* Leaderboard cell optimization */
   .custom-table th, .custom-table td {
     padding: 0.75rem 0.5rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .navbar-left .nav-divider,
+  .navbar-left .user-profile-badge {
+    display: none !important;
   }
 }
 

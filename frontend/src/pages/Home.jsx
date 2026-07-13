@@ -194,6 +194,13 @@ export default function Home({ user, onLogout, onNavigateToRecognition }) {
         {/* Mobile Dropdown Menu */}
         {mobileMenuOpen && (
           <div className="mobile-nav-menu animate-fade-in">
+            {/* Mobile User Profile badge */}
+            <div className="mobile-user-profile">
+              <User size={16} className="profile-icon" />
+              <span className="profile-name">{user.name}</span>
+              <span className={`role-tag role-${user.role}`}>{user.role}</span>
+            </div>
+
             <div className="mobile-search-wrapper">
               <Search size={18} className="search-icon" />
               <input
