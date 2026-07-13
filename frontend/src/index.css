@@ -527,13 +527,42 @@ h1, h2, h3, h4 {
 
 .mobile-user-profile {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background: rgba(255, 255, 255, 0.05);
+  padding: 0.85rem 1rem;
+  background: rgba(255, 255, 255, 0.03);
   border-radius: var(--radius-md);
   border: 1px solid var(--border-color);
   margin-bottom: 0.5rem;
+}
+
+.mobile-profile-header {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mobile-profile-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: white;
+  word-break: break-word;
+  line-height: 1.3;
+}
+
+.mobile-profile-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 0.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 0.5rem;
 }
 
 .table-container {
@@ -619,6 +648,29 @@ h1, h2, h3, h4 {
     gap: 0.75rem;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
     z-index: 1000;
+  }
+
+  .mobile-nav-menu .logout-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.75rem;
+    background: rgba(239, 68, 68, 0.08) !important;
+    color: #f87171 !important;
+    border: 1px solid rgba(239, 68, 68, 0.2) !important;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    transition: all var(--transition-fast);
+  }
+
+  .mobile-nav-menu .logout-btn:hover {
+    background: var(--danger) !important;
+    color: white !important;
+    border-color: var(--danger) !important;
   }
   
   /* Leaderboard cell optimization */

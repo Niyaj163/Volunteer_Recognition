@@ -196,9 +196,15 @@ export default function Home({ user, onLogout, onNavigateToRecognition }) {
           <div className="mobile-nav-menu animate-fade-in">
             {/* Mobile User Profile badge */}
             <div className="mobile-user-profile">
-              <User size={16} className="profile-icon" />
-              <span className="profile-name">{user.name}</span>
-              <span className={`role-tag role-${user.role}`}>{user.role}</span>
+              <div className="mobile-profile-header">
+                <User size={12} />
+                <span>Logged In User</span>
+              </div>
+              <div className="mobile-profile-name">{user.name}</div>
+              <div className="mobile-profile-meta">
+                <span className="vol-id-badge" style={{ margin: 0, padding: '0.15rem 0.45rem', fontSize: '0.75rem' }}>{user.id}</span>
+                <span className={`role-tag role-${user.role}`}>{user.role}</span>
+              </div>
             </div>
 
             <div className="mobile-search-wrapper">
