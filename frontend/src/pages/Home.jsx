@@ -218,7 +218,7 @@ export default function Home({ user, onLogout, onNavigateToRecognition }) {
               />
             </div>
             {(user.role === 'executive' || user.role === 'admin') && (
-              <button 
+              <button style={{ margin: "0.5rem" }}
                 className="btn btn-secondary mobile-menu-item" 
                 onClick={() => { setMobileMenuOpen(false); onNavigateToRecognition(); }}
               >
@@ -226,7 +226,7 @@ export default function Home({ user, onLogout, onNavigateToRecognition }) {
                 Recognition Panel
               </button>
             )}
-            <button 
+            <button style={{ margin: "0.5rem" }}
               className="logout-btn mobile-menu-item" 
               onClick={() => { setMobileMenuOpen(false); onLogout(); }}
             >
@@ -689,6 +689,7 @@ export default function Home({ user, onLogout, onNavigateToRecognition }) {
             background: rgba(255, 255, 255, 0.02);
             border-radius: var(--radius-md);
             border: 1px solid var(--border-color);
+            
           }
 
           .page-header {
